@@ -45,7 +45,7 @@ if length == '':
 else:
     length = int(length)
 
-#randomly select ascii character classes and individual characters
+
 
 while count < length:
     rand = random.randint (0,3)
