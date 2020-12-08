@@ -1,6 +1,7 @@
 
 import hashlib
 import os
+from datetime import datetime
 
 YELLOW = "\033[1;33m"
 RED   = "\033[1;31m"
@@ -21,6 +22,7 @@ def fonction_hash():
 
 def crack_hash_testant(hash_a_casser):
 	compteur = 0
+	time_debut = datetime.now()
 	for a in caractere_liste:
 		mot = a
 		mot_de_passe_hash = hashlib.md5(mot.encode())
@@ -29,6 +31,10 @@ def crack_hash_testant(hash_a_casser):
 
 		if hash_a_casser == mot_de_passe_hash.hexdigest():
 			print("Le mot de passe est : " + str(a))
+			time_fin = datetime.now()
+			time = time_fin - time_debut
+			print("Time : "+str(time)+str(" secondes"))
+
 			choix()
 		for b in caractere_liste:
 			mot = a+b
@@ -38,6 +44,9 @@ def crack_hash_testant(hash_a_casser):
 
 			if hash_a_casser == mot_de_passe_hash.hexdigest():
 				print("Le mot de passe est : " + str(mot))
+				time_fin = datetime.now()
+				time = time_fin - time_debut
+				print("Time : "+str(time)+str(" secondes"))
 				choix()
 			for c in caractere_liste:
 				mot = a+b+c
@@ -47,6 +56,9 @@ def crack_hash_testant(hash_a_casser):
 
 				if hash_a_casser == mot_de_passe_hash.hexdigest():
 					print("Le mot de passe est : " + str(mot))
+					time_fin = datetime.now()
+					time = time_fin - time_debut
+					print("Time : "+str(time)+str(" secondes"))
 					choix()
 				for d in caractere_liste:
 					mot = a+b+c+d
@@ -56,11 +68,15 @@ def crack_hash_testant(hash_a_casser):
 
 					if hash_a_casser == mot_de_passe_hash.hexdigest():
 						print("Le mot de passe est : " + str(mot))
+						time_fin = datetime.now()
+						time = time_fin - time_debut
+						print("Time : "+str(time)+str(" secondes"))
 						choix()
+	print("Aucun mot de passe trouvé")					
 def crack_hash_dict(hash_a_casser):
 	compteur = 0
 	listedemotdepasse = open("rockyou.txt","r", encoding ="utf-8", errors = 'ignore' ) #liste de mot de passe selectionné
-	
+	time_debut = datetime.now()
 	for mot in listedemotdepasse:
 		mot = mot.split("\n")
 		
@@ -72,12 +88,15 @@ def crack_hash_dict(hash_a_casser):
 		print(str(compteur)+ ")Try : "+str(mot[0]))
 		if mot_de_passe_hash.hexdigest() == hash_a_casser :
 			print("Le mot de passe est : " + str(mot[0]))
+			time_fin = datetime.now()
+			time = time_fin - time_debut
+			print("Time : "+str(time) +str(" secondes"))
 			choix()
 	print("Aucun mot de passe trouvé essayer avec une autre liste")
 def crack_hash():
 	print("Vous avez choisi de casser un mot de passe ")
 	hash_a_casser = str(input("Entrer le hash a casser : "))
-	print("Voulez vous attaquez le mot de passe avec : ")
+	print("Voulez vous attaquer le mot de passe avec : ")
 	print("1) Un dictionnaire")
 	print("2) En testant tous ")
 	choix = str(input("Entrer votre choix : "))
@@ -105,7 +124,7 @@ def choix():
 
 	while True:
 		print("1 - Voulez vous hasher un mot de passe ? ")
-		print("2 - Voulez vous cassez un mot de passe ?")
+		print("2 - Voulez vous casser un mot de passe ?")
 		choix = str(input("Que voulez vous faire ? : "))
 
 		if choix[:] == "":
